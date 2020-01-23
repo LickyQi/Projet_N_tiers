@@ -12,7 +12,7 @@
     $Manager_pw = '123456';
     //$domain is the domain name, the same as dc
     $domain = 'reseaux-os.com';
-    $ldapconfig['host'] = '161.3.44.23';
+    $ldapconfig['host'] = '161.3.52.253';
     //If accessing a local server, use localhost, and the port defaults to 389.
     $ldapconfig['port'] = 389;
     $ldapconfig['basedn'] = 'dc=reseaux-os,dc=com';

@@ -26,54 +26,63 @@
     
     // flag to show validation or not
     // 0 - no validation ; 1 - validation ;
-    $_POST['state'] = '1';
-    $state = mysqli_real_escape_string($mysqli, $_POST['state']);
+    $state = mysqli_real_escape_string($mysqli, '1');
     
-    //updating the table
-    $result = mysqli_query($mysqli, "UPDATE Contracts SET state= '$state' WHERE id=$id");
+    $result_state = mysqli_query($mysqli, "SELECT * FROM Contracts WHERE id=$id");
+    $res = mysqli_fetch_array($result_state);
+    $state_old = $res['state'];
     
-    if (isset($_POST['send_email'])){
-        $email_add = mysqli_real_escape_string($mysqli, $_POST['email']);
-        if(empty($email_add)){
-            echo '<script>alert("Email Address field is empty.");</script>';
-        }
-        else{
-            // Instantiation and passing `true` enables exceptions
-            $mail = new PHPMailer(true);
-            
-            try {
-                //Server settings
-                //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
-                $mail->isSMTP();                                            // Send using SMTP
-                $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
-                $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-                $mail->Username   = 'contarct.test@gmail.com';                     // SMTP username
-                $mail->Password   = 'telecomst';                               // SMTP password
-                $mail->SMTPSecure = 'PHPMailer::ENCRYPTION_STARTTLS';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
-                $mail->Port       = 587;                                    // TCP port to connect to
+    if($state_old=='1'){
+        echo '<script>alert("Canot validate the contract twice!");location.href="contract.php";</script>';
+    }
+    else{
+        //updating the table
+        $result = mysqli_query($mysqli, "UPDATE Contracts SET state= '$state' WHERE id=$id");
+        
+        //send E-mail to informe
+        if (isset($_POST['send_email'])){
+            $email_add = mysqli_real_escape_string($mysqli, $_POST['email']);
+            if(empty($email_add)){
+                echo '<script>alert("Email Address field is empty.");</script>';
+            }
+            else{
+                // Instantiation and passing `true` enables exceptions
+                $mail = new PHPMailer(true);
                 
-                //Recipients
-                $mail->setFrom('contarct.test@gmail.com', 'testContract');
-                $mail->addAddress($email_add);     // Add a recipient
-                //$mail->addAddress('ellen@example.com');               // Name is optional
-                $mail->addReplyTo('contarct.test@gmail.com', 'Information');
-                //$mail->addCC('cc@example.com');
-                //$mail->addBCC('bcc@example.com');
-                
-                // Attachments
-                //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-                //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-                
-                // Content
-                $mail->isHTML(true);                                  // Set email format to HTML
-                $mail->Subject = 'Validation of your contract';
-                $mail->Body    = '<b>Your contract has already been validation!</b>';
-                //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-                
-                $mail->send();
-                echo '<script>alert("The Message has been sent!");location.href="contract.php";</script>';
-            } catch (Exception $e) {
-                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                try {
+                    //Server settings
+                    //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+                    $mail->isSMTP();                                            // Send using SMTP
+                    $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+                    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                    $mail->Username   = 'contarct.test@gmail.com';                     // SMTP username
+                    $mail->Password   = 'telecomst';                               // SMTP password
+                    $mail->SMTPSecure = 'PHPMailer::ENCRYPTION_STARTTLS';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+                    $mail->Port       = 587;                                    // TCP port to connect to
+                    
+                    //Recipients
+                    $mail->setFrom('contarct.test@gmail.com', 'testContract');
+                    $mail->addAddress($email_add);     // Add a recipient
+                    //$mail->addAddress('ellen@example.com');               // Name is optional
+                    $mail->addReplyTo('contarct.test@gmail.com', 'Information');
+                    //$mail->addCC('cc@example.com');
+                    //$mail->addBCC('bcc@example.com');
+                    
+                    // Attachments
+                    //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+                    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+                    
+                    // Content
+                    $mail->isHTML(true);                                  // Set email format to HTML
+                    $mail->Subject = 'Validation of your contract';
+                    $mail->Body    = '<b>Your contract has already been validation!</b>';
+                    //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+                    
+                    $mail->send();
+                    echo '<script>alert("The Message has been sent!");location.href="contract.php";</script>';
+                } catch (Exception $e) {
+                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                }
             }
         }
     }
