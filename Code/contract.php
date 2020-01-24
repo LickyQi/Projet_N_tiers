@@ -2,7 +2,7 @@
     
     /*
      * @author LI Qi
-     * The main page with the table of contracts
+     * The main page with the table of contracts and some operation button
      * I use Bootstrap to design the item
      */
     

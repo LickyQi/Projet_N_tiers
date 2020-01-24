@@ -3,7 +3,7 @@
     /*
      * @author LI Qi
      * mysql_connect is deprecated
-     * So I use mysqli_connect to connect PHP anb MySql
+     * So I use mysqli_connect to connect PHP and MySql
      */
     
     $databaseHost = '127.0.0.1';
