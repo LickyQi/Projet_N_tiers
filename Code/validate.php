@@ -4,7 +4,7 @@
      * @author LI Qi
      * This php implements a function to validate a contract
      * and to sent a e-mail to inform
-     *  I use PHPMailer and Google Email API to realise this function.
+     * I use PHPMailer and Google Email API to realise this function.
      */
     
     /*

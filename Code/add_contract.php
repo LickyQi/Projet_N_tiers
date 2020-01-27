@@ -4,7 +4,6 @@
      * This important php implements the function to add a new contract
      */
     
-    
     include("config.php");
     
     include ("/Library/WebServer/Documents/ntiers/pdf2text/PdfToText.phpclass");

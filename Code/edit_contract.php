@@ -6,7 +6,6 @@
      * Most of the part of this PHP are same to the add_contract.php
      */
     
-    
     // The first part is different
     // because that edit the contract should selecte the contract from Mysql
     // and the to update it
