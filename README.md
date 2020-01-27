@@ -27,5 +27,5 @@ Sujet TD Architecture N-Tiers 2019-2020
 #### 7. **validate.php** implements a function to validate a contract and to sent a e-mail to inform.
         I use PHPMailer and Google Email API to realise this function.
 #### 8. **show_pdf.php** just implements the function to show the PDF
-#### 9. **PHPMailer** id for the page of email using Google Email API.
+#### 9. **PHPMailer** is for the page of email using Google Email API.
 #### 10. **pdf2text** changes the pdf to text for searching the key word
